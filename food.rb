@@ -28,3 +28,21 @@ class Food < Menu
     return "#{self.name}は#{self.calorie}kcalです"
   end
 end
+
+
+
+# オーバーライド(親クラスと同じ名前のメソッドを子クラスに定義すると、子クラスのメソッドが優先して使用される。jsと似ている、詳しくはjs4のリポジトリ参照)
+require "./menu"
+
+class Food < Menu
+  attr_accessor :calorie
+  
+  # 
+  def info
+    return "#{self.name} #{self.price}円 (#{self.calorie}kcal)"
+  end
+  
+  def calorie_info
+    return "#{self.name}は#{self.calorie}kcalです"
+  end
+end

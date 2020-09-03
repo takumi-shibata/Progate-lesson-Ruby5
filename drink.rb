@@ -14,3 +14,17 @@ class Drink < Menu
   # ↓「amount」というDrinkクラス独自のインスタンス変数の追加
   attr_accessor :amount
 end
+
+
+
+# オーバーライド(親クラスと同じ名前のメソッドを子クラスに定義すると、子クラスのメソッドが優先して使用される。jsと似ている、詳しくはjs4のリポジトリ参照)
+require "./menu"
+
+class Drink < Menu
+  attr_accessor :amount
+  
+  # 
+  def info
+    return "#{self.name} #{self.price}円 (#{self.amount}mL)"
+  end  
+end
