@@ -40,7 +40,7 @@ class Drink < Menu
   
   # ↓initializeメソッドのオーバーライド: 子クラス(Drink)のinitializeメソッドが優先される
   def initialize(name:, price:, amount:)
-  	# ↓super
+    # ↓super
     super(name: name, price: price)
     self.amount = amount
   end
