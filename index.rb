@@ -131,41 +131,33 @@ puts today
 
 
 
-# クラスメソッド(クラスに対して呼び出すメソッド)
-#「def クラス名.メソッド名 end」とすることで定義できる
+# クラスメソッドの呼び出し
+require "./food"
+require "./drink"
 
-# ↓Dateクラスを読み込み
-require "date"
+puts "日曜限定100円割引セール実施中！"
 
-class Menu
-  attr_accessor :name
-  attr_accessor :price
+food1 = Food.new(name: "ピザ", price: 800, calorie: 700)
+food2 = Food.new(name: "すし", price: 1000, calorie: 600)
+drink1 = Drink.new(name: "コーラ", price: 300, amount: 500)
+drink2 = Drink.new(name: "お茶", price: 200, amount: 400)
 
-  def initialize(name:, price:)
-    self.name = name
-    self.price = price
-  end
-  
-  def info
-    return "#{self.name} #{self.price}円"
-  end
-  
-  def get_total_price(count)
-    total_price = self.price * count
-    if count >= 3
-      total_price -= 100
-    end
-    return total_price
-  end
-  
-  # ↓クラスメソッド
-  def Menu.is_discount_day?
+menus = [food1, food2, drink1, drink2]
 
-    # ↓「Date.today」今日の日付のインスタンスをつくることができる
-    today = Date.today
-
-    # ↓Dateクラスのインスタンスメソッド:「sunday?」
-    # ↓戻り値で今日の日付が日曜日であればtrue、そうでなければfalseを返す処理   
-    return today.sunday?
-  end
+index = 0
+menus.each do |menu|
+  puts "#{index}. #{menu.info}"
+  index += 1
 end
+
+puts "--------------"
+puts "メニューの番号を選択してください"
+order = gets.chomp.to_i
+
+selected_menu = menus[order]
+puts "選択されたメニュー: #{selected_menu.name}"
+
+puts "個数を入力してください(3つ以上で100円割引)"
+count = gets.chomp.to_i
+
+puts "お会計は#{selected_menu.get_total_price(count)}円です"
