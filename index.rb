@@ -105,3 +105,67 @@ puts "個数を入力してください(3つ以上で100円割引)"
 count = gets.chomp.to_i
 
 puts "お会計は#{selected_menu.get_total_price(count)}円です"
+
+
+
+# Dateクラス(DateクラスとはRubyがすでに用意しているクラスで、日付を扱う時に用いる)
+# ↓「require」を用いてDateクラスを読み込むことで、クラスを定義しなくても使うことができる(※すでに用意されているクラスは、requireの書き方が少し異なるので注意！)
+require "date" # ←(※"./dateではないことに注意")
+
+# ↓今まで扱ってきたクラスと同様「クラス名.new」とすることでインスタンスを生成することができる(※引数に年,月,日を渡してインスタンスを生成)
+birthday = Date.new(1996, 3, 1)
+puts birthday
+# →1996-03-01
+
+# ↓Dateクラスのインスタンスメソッド:「sunday?」
+#「sunday?」とはDateクラスのインスタンスの日付が、「日曜日かどうか」を真偽値で返すメソッド(合っていたらtrue、間違っていたらfalse)
+puts birthday.sunday?
+# →false
+
+
+
+# ↓「Date.today」今日の日付のインスタンスをつくることができる
+today = Date.today
+puts today
+# →2020-09-29
+
+
+
+# クラスメソッド(クラスに対して呼び出すメソッド)
+#「def クラス名.メソッド名 end」とすることで定義できる
+
+# ↓Dateクラスを読み込み
+require "date"
+
+class Menu
+  attr_accessor :name
+  attr_accessor :price
+
+  def initialize(name:, price:)
+    self.name = name
+    self.price = price
+  end
+  
+  def info
+    return "#{self.name} #{self.price}円"
+  end
+  
+  def get_total_price(count)
+    total_price = self.price * count
+    if count >= 3
+      total_price -= 100
+    end
+    return total_price
+  end
+  
+  # ↓クラスメソッド
+  def Menu.is_discount_day?
+
+    # ↓「Date.today」今日の日付のインスタンスをつくることができる
+    today = Date.today
+
+    # ↓Dateクラスのインスタンスメソッド:「sunday?」
+    # ↓戻り値で今日の日付が日曜日であればtrue、そうでなければfalseを返す処理   
+    return today.sunday?
+  end
+end
